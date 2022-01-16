@@ -1,13 +1,47 @@
 <script>
 	import Tailwindcss from './Tailwindcss.svelte';
+	import Header from './Header.svelte';
+	import SideMenu from './SideMenu.svelte';
 	export let name;
+
+	const todos = [
+		{
+			id: 1,
+			name: 'test',
+			description: 'this todo description',
+			tags: [],
+			is_active: 1,
+			date: '2030-01-01',
+			status: 1,
+		},
+		{
+			id: 2,
+			name: 'second todo',
+			description: 'this todo description',
+			tags: [],
+			is_active: 1,
+			date: '2030-01-01',
+			status: 1,
+		},
+	];
+
+	const tags = [
+
+	];
 </script>
 
 <Tailwindcss />
 
+<Header />
+
+<SideMenu />
+
 <main>
-	<h1>Hello {name}!</h1>
-	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
+	{#each todos as todo,i }
+		<li>
+			{i + 1}: {todo.name}
+		</li>
+	{/each}
 </main>
 
 <style>
