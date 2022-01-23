@@ -4,6 +4,7 @@
 	import '../app.css';
 	import Footer from "$lib/footer/Footer.svelte";
 	import LoadingIndicator from "$lib/LoadingIndicator.svelte";
+	import SideBar from "$lib/sideBar/SideBar.svelte";
 </script>
 
 {#if $navigating }
@@ -12,22 +13,20 @@
 
 <Header />
 
-<main>
-	<slot />
-</main>
+<div class="flex flex-row">
+	<SideBar />
+
+	<main class="grow">
+		<slot />
+	</main>
+</div>
+
 
 <Footer/>
 
 <style>
 	main {
-		flex: 1;
-		display: flex;
-		flex-direction: column;
-		padding: 1rem;
-		width: 100%;
-		max-width: 1024px;
-		margin: 0 auto;
-		box-sizing: border-box;
+		flex: 2;
 	}
 
 </style>
