@@ -13,7 +13,7 @@
 
 <Header />
 
-<div class="flex flex-row">
+<div class="flex flex-row grow">
 	<SideBar />
 
 	<main class="grow">
