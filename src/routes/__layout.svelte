@@ -1,32 +1,32 @@
 <script>
-	import { navigating } from '$app/stores';
-	import Header from '$lib/header/Header.svelte';
-	import '../app.css';
-	import Footer from "$lib/footer/Footer.svelte";
-	import LoadingIndicator from "$lib/LoadingIndicator.svelte";
-	import SideBar from "$lib/sideBar/SideBar.svelte";
+    import {navigating} from '$app/stores';
+    import Header from '$lib/header/Header.svelte';
+    import '../app.css';
+    import Footer from "$lib/footer/Footer.svelte";
+    import LoadingIndicator from "$lib/LoadingIndicator.svelte";
+    import SideBar from "$lib/sideBar/SideBar.svelte";
 </script>
 
 {#if $navigating }
-	<LoadingIndicator />
+    <LoadingIndicator/>
 {/if}
 
-<Header />
+<Header/>
 
 <div class="flex flex-row grow">
-	<SideBar />
+    <SideBar/>
 
-	<main class="grow">
-		<slot />
-	</main>
+    <main class="grow">
+        <slot/>
+    </main>
 </div>
 
 
 <Footer/>
 
 <style>
-	main {
-		flex: 2;
-	}
+    main {
+        flex: 2;
+    }
 
 </style>
