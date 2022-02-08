@@ -29,13 +29,13 @@
 					</button>
 				</div>
 
-				<a href="tes" class="flex hover:no-underline">
+				<a href="/todos" class="flex hover:no-underline">
 					<span class="self-center text-lg font-semibold whitespace-nowrap text-white">
 						<Fa icon={faHome} />
 					</span>
 				</a>
 
-				<a href="tes" class="flex hover:no-underline">
+				<a href="/todos" class="flex hover:no-underline">
 					<span class="self-center text-lg font-semibold whitespace-nowrap text-white">
 						<Fa icon={faInfoCircle} />
 					</span>

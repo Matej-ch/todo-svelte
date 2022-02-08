@@ -42,7 +42,7 @@
 </svelte:head>
 
 <div class="todos">
-	<h1>Todos</h1>
+	<h1 class="font-bold text-3xl pb-2 mb-4 border-b">To-Do List items</h1>
 
 	<form
 		class="new"
@@ -111,10 +111,7 @@
 
 <style>
 	.todos {
-		width: 100%;
-		max-width: var(--column-width);
-		margin: var(--column-margin-top) auto 0 auto;
-		line-height: 1;
+		@apply w-full leading-none px-28 pt-12;
 	}
 
 	.new {
