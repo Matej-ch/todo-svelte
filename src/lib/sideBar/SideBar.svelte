@@ -69,13 +69,13 @@
     <div class="flex flex-col">
         <h2 class="uppercase pb-3 text-slate-500">File control</h2>
         <div class="pl-4 text-slate-700 flex flex-row items-center gap-1 pb-3">
-            <a href="/todos" class="flex gap-1 items-center">
+            <a href="/todos" class="flex gap-1 items-center" on:click|preventDefault={() => dispatch('export')}>
                 <Fa icon={faFileDownload}/>
                 Export
             </a>
         </div>
         <div class="pl-4 text-slate-700 flex flex-row items-center gap-1 pb-5">
-            <a href="/todos" class="flex gap-1 items-center">
+            <a href="/todos" class="flex gap-1 items-center" on:click|preventDefault={() => dispatch('import')}>
                 <Fa icon={faFileUpload}/>
                 Import
             </a>

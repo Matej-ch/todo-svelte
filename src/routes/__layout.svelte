@@ -5,6 +5,24 @@
     import Footer from "$lib/footer/Footer.svelte";
     import LoadingIndicator from "$lib/LoadingIndicator.svelte";
     import SideBar from "$lib/sideBar/SideBar.svelte";
+    import {sync, truncate} from "$lib/actions/db.js";
+    import {exportCsv, importCsv} from "$lib/actions/file.js";
+
+    function handleSync() {
+        sync();
+    }
+
+    function handleTruncate() {
+        truncate();
+    }
+
+    function handleImport() {
+        importCsv();
+    }
+
+    function handleExport() {
+        exportCsv();
+    }
 </script>
 
 {#if $navigating }
@@ -14,7 +32,7 @@
 <Header/>
 
 <div class="flex flex-row grow">
-    <SideBar/>
+    <SideBar on:sync={handleSync} on:truncate={handleTruncate} on:export={handleExport} on:import={handleImport}/>
 
     <main class="grow">
         <slot/>
