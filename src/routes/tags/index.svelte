@@ -5,6 +5,15 @@
     let tags = [];
     let name = '';
 
+    let newTagId
+    $: {
+        if (tags.length === 0) {
+            newTagId = 1;
+        } else {
+            newTagId = Math.max(...tags.map(t => t.id)) + 1;
+        }
+    }
+
     function addTag(e) {
         const formData = new FormData(e.target);
 
@@ -18,6 +27,7 @@
             data[key] = value;
         }
 
+        data['id'] = newTagId;
         tags = [...tags, data];
         name = '';
     }
@@ -30,7 +40,7 @@
 
 <div class="todos">
     <h1 class="font-bold text-3xl pb-2">Tags </h1>
-    <p class="pb-8 mb-4 border-b"></p>
+    <p class="pb-8 mb-4 border-b">There is <span class="font-bold">{tags.length}</span> tags</p>
 
     <form
         class="new"

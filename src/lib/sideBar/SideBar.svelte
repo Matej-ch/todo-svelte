@@ -11,6 +11,10 @@
         faRedo,
         faSync, faTags
     } from "@fortawesome/free-solid-svg-icons";
+    import {createEventDispatcher} from 'svelte'
+
+    const dispatch = createEventDispatcher()
+
 </script>
 
 <div class="grow-0 flex flex-col gap-4 pl-4 pt-8">
@@ -93,13 +97,13 @@
             </a>
         </div>
         <div class="pl-4 text-slate-700 flex flex-row items-center gap-1 pb-3">
-            <a href="/todos" class="flex gap-1 items-center">
+            <a href="/todos" class="flex gap-1 items-center" on:click|preventDefault={() => dispatch('sync')}>
                 <Fa icon={faSync}/>
                 Database Sync
             </a>
         </div>
         <div class="pl-4 text-slate-700 flex flex-row items-center gap-1 pb-3">
-            <a href="/todos" class="flex gap-1 items-center">
+            <a href="/todos" class="flex gap-1 items-center" on:click|preventDefault={() => dispatch('truncate')}>
                 <Fa icon={faRedo}/>
                 Database reset
             </a>
