@@ -1,4 +1,7 @@
 <script>
+    import Fa from 'svelte-fa/src/fa.svelte'
+    import {faTags} from "@fortawesome/free-solid-svg-icons";
+
     let tags = [];
 
     function addTag(e) {
@@ -33,7 +36,11 @@
                class="bg-green-50 border border-green-500 text-green-900 placeholder-slate-400 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"/>
     </form>
 
-    {#each tags as tag }
-        <div>{tag.name}</div>
-    {/each}
+    <div class="pt-12">
+        {#each tags as tag }
+            <div class="py-2 flex items-center gap-1">
+                <Fa icon={faTags}/> {tag.name}</div>
+        {/each}
+    </div>
+
 </div>
