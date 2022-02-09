@@ -19,20 +19,24 @@
         <h2 class="uppercase pb-3 text-slate-500">TO-DO list</h2>
         <div class="pl-4 text-slate-700 flex flex-row items-center gap-1 pb-3">
             <a href="/todos" class="flex gap-1 items-center">
-                <Fa icon={faList} /> All items
+                <Fa icon={faList}/>
+                All todos
             </a>
         </div>
         <div class="pl-4 text-slate-700 flex flex-row items-center gap-1 pb-3">
-            <a href="/todos" class="flex gap-1 items-center">
-                <Fa icon={faFolderOpen} /> Projects</a>
+            <a href="/projects" class="flex gap-1 items-center">
+                <Fa icon={faFolderOpen}/>
+                Projects</a>
         </div>
         <div class="pl-4 text-slate-700 flex flex-row items-center gap-1 pb-3">
-            <a href="/todos" class="flex gap-1 items-center">
-                <Fa icon={faTags} /> Tags</a>
+            <a href="/tags" class="flex gap-1 items-center">
+                <Fa icon={faTags}/>
+                Tags</a>
         </div>
         <div class="pl-4 text-slate-700 flex flex-row items-center gap-1 pb-5">
             <a href="/todos" class="flex gap-1 items-center">
-                <Fa icon={faPlusCircle} /> New</a>
+                <Fa icon={faPlusCircle}/>
+                New</a>
         </div>
     </div>
 
@@ -40,17 +44,20 @@
         <h2 class="uppercase pb-3 text-slate-500">Calendar</h2>
         <div class="pl-4 text-slate-700 flex flex-row items-center gap-1 pb-3">
             <a href="/todos" class="flex gap-1 items-center">
-                <Fa icon={faCalendarDay} /> Day Tasks
+                <Fa icon={faCalendarDay}/>
+                Day Tasks
             </a>
         </div>
         <div class="pl-4 text-slate-700 flex flex-row items-center gap-1 pb-3">
             <a href="/todos" class="flex gap-1 items-center">
-                <Fa icon={faCalendarWeek} /> Week Tasks
+                <Fa icon={faCalendarWeek}/>
+                Week Tasks
             </a>
         </div>
         <div class="pl-4 text-slate-700 flex flex-row items-center gap-1 pb-5">
             <a href="/todos" class="flex gap-1 items-center">
-                <Fa icon={faCalendarAlt} /> Month Tasks
+                <Fa icon={faCalendarAlt}/>
+                Month Tasks
             </a>
         </div>
     </div>
@@ -59,12 +66,14 @@
         <h2 class="uppercase pb-3 text-slate-500">File control</h2>
         <div class="pl-4 text-slate-700 flex flex-row items-center gap-1 pb-3">
             <a href="/todos" class="flex gap-1 items-center">
-                <Fa icon={faFileDownload} /> Export
+                <Fa icon={faFileDownload}/>
+                Export
             </a>
         </div>
         <div class="pl-4 text-slate-700 flex flex-row items-center gap-1 pb-5">
             <a href="/todos" class="flex gap-1 items-center">
-                <Fa icon={faFileUpload} /> Import
+                <Fa icon={faFileUpload}/>
+                Import
             </a>
         </div>
     </div>
@@ -72,28 +81,33 @@
     <div class="flex flex-col">
         <h2 class="uppercase pb-3 text-slate-500">Settings</h2>
         <div class="pl-4 text-slate-700 flex flex-row items-center gap-1 pb-3">
-            <a href="/todos" class="flex gap-1 items-center">
-                <Fa icon={faCogs} /> General settings
+            <a href="/settings" class="flex gap-1 items-center">
+                <Fa icon={faCogs}/>
+                General settings
+            </a>
+        </div>
+        <div class="pl-4 text-slate-700 flex flex-row items-center gap-1 pb-3">
+            <a href="/themes" class="flex gap-1 items-center">
+                <Fa icon={faPalette}/>
+                Theme
             </a>
         </div>
         <div class="pl-4 text-slate-700 flex flex-row items-center gap-1 pb-3">
             <a href="/todos" class="flex gap-1 items-center">
-                <Fa icon={faPalette} /> Theme
+                <Fa icon={faSync}/>
+                Database Sync
             </a>
         </div>
         <div class="pl-4 text-slate-700 flex flex-row items-center gap-1 pb-3">
             <a href="/todos" class="flex gap-1 items-center">
-                <Fa icon={faSync} /> Database Sync
-            </a>
-        </div>
-        <div class="pl-4 text-slate-700 flex flex-row items-center gap-1 pb-3">
-            <a href="/todos" class="flex gap-1 items-center">
-                <Fa icon={faRedo} /> Database reset
+                <Fa icon={faRedo}/>
+                Database reset
             </a>
         </div>
         <div class="pl-4 text-slate-700 flex flex-row items-center gap-1 pb-5">
-            <a href="/todos" class="flex gap-1 items-center">
-                <Fa icon={faInfoCircle} /> About
+            <a href="/about" class="flex gap-1 items-center">
+                <Fa icon={faInfoCircle}/>
+                About
             </a>
         </div>
     </div>

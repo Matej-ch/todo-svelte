@@ -24,6 +24,8 @@
 <script>
     import {scale} from 'svelte/transition';
     import {flip} from 'svelte/animate';
+    import Fa from 'svelte-fa/src/fa.svelte'
+    import {faArchive, faFlag, faList} from "@fortawesome/free-solid-svg-icons";
 
     export let todos;
 
@@ -36,8 +38,6 @@
         });
     }
 
-    import Fa from 'svelte-fa/src/fa.svelte'
-    import {faArchive, faFlag, faList} from "@fortawesome/free-solid-svg-icons";
 </script>
 
 <svelte:head>
@@ -135,10 +135,6 @@
 </div>
 
 <style>
-    .todos {
-        @apply w-full leading-none px-28 pt-12;
-    }
-
     .new {
         margin: 0 0 0.5rem 0;
     }
