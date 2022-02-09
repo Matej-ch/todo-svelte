@@ -3,9 +3,14 @@
     import {faTags} from "@fortawesome/free-solid-svg-icons";
 
     let tags = [];
+    let name = '';
 
     function addTag(e) {
         const formData = new FormData(e.target);
+
+        if (!name.length) {
+            return;
+        }
 
         const data = {};
         for (let field of formData) {
@@ -14,8 +19,7 @@
         }
 
         tags = [...tags, data];
-
-        e.target.querySelector('input').value = '';
+        name = '';
     }
 </script>
 
@@ -32,7 +36,7 @@
         class="new"
         method="post" on:submit|preventDefault={addTag}>
 
-        <input type="text" name="name" aria-label="Add tag" placeholder="Add tag"
+        <input type="text" name="name" bind:value={name} aria-label="Add tag" placeholder="Add tag"
                class="bg-green-50 border border-green-500 text-green-900 placeholder-slate-400 text-sm rounded-md focus:ring-green-500 focus:border-green-500 block w-full p-2.5"/>
     </form>
 
