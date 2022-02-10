@@ -23,3 +23,14 @@
 .todos {
     @apply w-full leading-none px-28 pt-12;
 }
+
+
+.delete {
+    opacity: 0.2;
+}
+
+.delete:hover,
+.delete:focus {
+    transition: opacity 0.2s;
+    opacity: 1;
+}

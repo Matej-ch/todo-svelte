@@ -1,6 +1,6 @@
 <script>
     import Fa from 'svelte-fa/src/fa.svelte'
-    import {faTags} from "@fortawesome/free-solid-svg-icons";
+    import {faTags, faTimesCircle} from "@fortawesome/free-solid-svg-icons";
 
     let tags = [];
     let name = '';
@@ -53,7 +53,14 @@
     <div class="pt-12 flex flex-row flex-wrap gap-6">
         {#each tags as tag }
             <div class="py-2 flex items-center gap-1 text-slate-800">
-                <Fa icon={faTags}/> {tag.name}</div>
+                <Fa icon={faTags}/> {tag.name}
+
+                <button class="delete" aria-label="Delete tag" on:click={() => {
+                        tags = tags.filter((t) => t.id !== tag.id);
+                    }}>
+                    <Fa icon={faTimesCircle} class="text-red-800"/>
+                </button>
+            </div>
         {/each}
     </div>
 
