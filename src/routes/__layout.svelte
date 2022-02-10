@@ -7,6 +7,7 @@
     import SideBar from "$lib/sideBar/SideBar.svelte";
     import {sync, truncate} from "$lib/actions/db.js";
     import {exportCsv, importCsv} from "$lib/actions/file.js";
+    import Alert from "$lib/components/Alert.svelte";
 
     function handleSync() {
         sync();
@@ -30,6 +31,7 @@
 {/if}
 
 <Header/>
+<Alert/>
 
 <div class="flex flex-row grow">
     <SideBar on:sync={handleSync} on:truncate={handleTruncate} on:export={handleExport} on:import={handleImport}/>
