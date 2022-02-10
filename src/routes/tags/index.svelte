@@ -4,12 +4,10 @@
     import {localStore} from "$lib/actions/localStore.js";
 
     let name = '';
-    
-    export let tags = localStore('todo-tags', [])
-    //let tags = [];
-    console.log(tags);
 
-    $: newTagId = tags.length > 0 ? Math.max(...tags.map(t => t.id)) + 1 : 1
+    export let tags = localStore('todo-tags', [])
+
+    $: newTagId = $tags.length > 0 ? Math.max(...$tags.map(t => t.id)) + 1 : 1
 
     function addTag(e) {
         const formData = new FormData(e.target);
@@ -25,7 +23,7 @@
         }
 
         data['id'] = newTagId;
-        tags = [...tags, data];
+        $tags = [...$tags, data];
         name = '';
     }
 </script>
@@ -37,7 +35,7 @@
 
 <div class="todos">
     <h1 class="font-bold text-3xl pb-2">Tags </h1>
-    <p class="pb-8 mb-4 border-b">There is <span class="font-bold">{tags.length}</span> tags</p>
+    <p class="pb-8 mb-4 border-b">There is <span class="font-bold">{$tags.length}</span> tags</p>
 
     <form
         class="new"
@@ -48,12 +46,12 @@
     </form>
 
     <div class="pt-12 flex flex-row flex-wrap gap-6">
-        {#each tags as tag }
+        {#each $tags as tag }
             <div class="py-2 flex items-center gap-1 text-slate-800">
                 <Fa icon={faTags}/> {tag.name}
 
                 <button class="delete" aria-label="Delete tag" on:click={() => {
-                        tags = tags.filter((t) => t.id !== tag.id);
+                        $tags = $tags.filter((t) => t.id !== tag.id);
                     }}>
                     <Fa icon={faTimesCircle} class="text-red-800"/>
                 </button>
