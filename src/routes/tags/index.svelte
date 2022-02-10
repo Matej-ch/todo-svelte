@@ -1,18 +1,15 @@
 <script>
     import Fa from 'svelte-fa/src/fa.svelte'
     import {faTags, faTimesCircle} from "@fortawesome/free-solid-svg-icons";
+    import {localStore} from "$lib/actions/localStore.js";
 
-    let tags = [];
     let name = '';
+    
+    export let tags = localStore('todo-tags', [])
+    //let tags = [];
+    console.log(tags);
 
-    let newTagId
-    $: {
-        if (tags.length === 0) {
-            newTagId = 1;
-        } else {
-            newTagId = Math.max(...tags.map(t => t.id)) + 1;
-        }
-    }
+    $: newTagId = tags.length > 0 ? Math.max(...tags.map(t => t.id)) + 1 : 1
 
     function addTag(e) {
         const formData = new FormData(e.target);
