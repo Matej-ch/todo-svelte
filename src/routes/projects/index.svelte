@@ -1,6 +1,9 @@
 <script>
     import Fa from 'svelte-fa/src/fa.svelte'
     import {faArchive, faFlag, faList} from "@fortawesome/free-solid-svg-icons";
+    import {localStore} from "$lib/actions/localStore.js";
+
+    export let projects = localStore('todo-projects', [])
 </script>
 
 

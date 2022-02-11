@@ -2,7 +2,7 @@
     import {enhance} from '$lib/form';
 
     // see https://kit.svelte.dev/docs#loading
-    export const load = async ({fetch}) => {
+    /*export const load = async ({fetch}) => {
         const res = await fetch('/todos.json');
 
         if (res.ok) {
@@ -18,7 +18,7 @@
         return {
             error: new Error(message)
         };
-    };
+    };*/
 </script>
 
 <script>
@@ -26,13 +26,16 @@
     import {flip} from 'svelte/animate';
     import Fa from 'svelte-fa/src/fa.svelte'
     import {faArchive, faFlag, faList} from "@fortawesome/free-solid-svg-icons";
+    import {localStore} from "$lib/actions/localStore.js";
 
-    export let todos;
+    //export let todos;
+
+    export let todos = localStore('todo-todos', [])
 
     async function patch(res) {
         const todo = await res.json();
 
-        todos = todos.map((t) => {
+        $todos = $todos.map((t) => {
             if (t.uid === todo.uid) return todo;
             return t;
         });
@@ -73,7 +76,7 @@
         use:enhance={{
 			result: async (res, form) => {
 				const created = await res.json();
-				todos = [...todos, created];
+				$todos = [...$todos, created];
 
 				form.reset();
 			}
@@ -82,7 +85,7 @@
         <input name="text" aria-label="Add todo" placeholder="+ tap to add a todo"/>
     </form>
 
-    {#each todos as todo (todo.uid)}
+    {#each $todos as todo (todo.uid)}
         <div
             class="todo"
             class:done={todo.done}
@@ -121,7 +124,7 @@
                 use:enhance={{
 					pending: () => (todo.pending_delete = true),
 					result: () => {
-						todos = todos.filter((t) => t.uid !== todo.uid);
+						$todos = $todos.filter((t) => t.uid !== todo.uid);
 					}
 				}}
             >
