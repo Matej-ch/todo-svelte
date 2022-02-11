@@ -15,7 +15,15 @@
     import {scale} from 'svelte/transition';
     import {flip} from 'svelte/animate';
     import Fa from 'svelte-fa/src/fa.svelte'
-    import {faArchive, faFlag, faList} from "@fortawesome/free-solid-svg-icons";
+    import {
+        faArchive, faCalendarDay,
+        faCheckCircle, faFile,
+        faFlag,
+        faList,
+        faPencilAlt,
+        faStickyNote, faTag,
+        faTrash
+    } from "@fortawesome/free-solid-svg-icons";
 
     let name = '';
 
@@ -96,8 +104,50 @@
             transition:scale|local={{ start: 0.7 }}
             animate:flip={{ duration: 200 }}
         >
+            <div class="flex gap-1">
+                <Fa icon={faStickyNote}/>
+                {todo.text}
+            </div>
 
-            {todo.text}
+            <div>
+                <span
+                    class="bg-gray-100 text-gray-800 text-xs font-medium inline-flex gap-1 items-baseline px-2.5 py-2 rounded mr-2 dark:bg-gray-700 dark:text-gray-200 p-">
+                    <Fa icon={faCalendarDay}/>
+                    <span>{todo.date}</span>
+                </span>
+
+                <span
+                    class="bg-gray-100 text-gray-800 text-xs font-medium inline-flex gap-1 items-baseline px-2.5 py-2 rounded mr-2 dark:bg-gray-700 dark:text-gray-300">
+                    <Fa icon={faTag}/>
+                    <span>New tag</span>
+                </span>
+
+                <span
+                    class="bg-gray-100 text-gray-800 text-xs font-medium inline-flex gap-1 items-baseline px-2.5 py-2 rounded mr-2 dark:bg-gray-700 dark:text-gray-300">
+                    <Fa icon={faFile}/>
+                    New project
+                </span>
+            </div>
+
+            <div>
+                <button class="inline-flex justify-center items-center bg-green-500">
+                    <Fa icon={faCheckCircle}/>
+                </button>
+
+                <button class="inline-flex justify-center items-center bg-purple-500">
+                    <Fa icon={faPencilAlt}/>
+                </button>
+
+                <button class="inline-flex justify-center items-center bg-yellow-500">
+                    <Fa icon={faArchive}/>
+                </button>
+
+                <button class="inline-flex justify-center items-center bg-red-500">
+                    <Fa icon={faTrash}/>
+                </button>
+            </div>
+
+
             <!--<form
                 action="/todos/{todo.uid}.json?_method=PATCH"
                 method="post"
@@ -169,13 +219,8 @@
     }
 
     .todo {
-        display: grid;
-        grid-template-columns: 2rem 1fr 2rem;
-        grid-gap: 0.5rem;
-        align-items: center;
+        @apply grid grid-cols-3 items-center bg-white gap-2 p-8;
         margin: 0 0 0.5rem 0;
-        padding: 0.5rem;
-        background-color: white;
         border-radius: 8px;
         filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.1));
         transform: translate(-1px, -1px);
@@ -204,17 +249,7 @@
     .todo button {
         width: 2em;
         height: 2em;
-        border: none;
-        background-color: transparent;
-        background-position: 50% 50%;
-        background-repeat: no-repeat;
-    }
-
-    button.toggle {
-        border: 1px solid rgba(0, 0, 0, 0.2);
-        border-radius: 50%;
-        box-sizing: border-box;
-        background-size: 1em auto;
+        @apply rounded-sm text-white;
     }
 
     .done .toggle {
