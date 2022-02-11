@@ -1,11 +1,20 @@
+<script context="module">
+    import {localStore} from "$lib/actions/localStore.js";
+
+    export async function load() {
+
+        const tags = localStore('todo-tags', []);
+
+        return {props: {tags}}
+    }
+</script>
 <script>
     import Fa from 'svelte-fa/src/fa.svelte'
     import {faTags, faTimesCircle} from "@fortawesome/free-solid-svg-icons";
-    import {localStore} from "$lib/actions/localStore.js";
 
     let name = '';
 
-    export let tags = localStore('todo-tags', [])
+    export let tags;
 
     $: newTagId = $tags.length > 0 ? Math.max(...$tags.map(t => t.id)) + 1 : 1
 
@@ -39,7 +48,8 @@
 
     <form
         class="new"
-        method="post" on:submit|preventDefault={addTag}>
+        method="post"
+        on:submit|preventDefault={addTag}>
 
         <input type="text" name="name" bind:value={name} aria-label="Add tag" placeholder="Add tag"
                class="bg-green-50 border border-green-500 text-green-900 placeholder-slate-400 text-sm rounded-md focus:ring-green-500 focus:border-green-500 block w-full p-2.5"/>

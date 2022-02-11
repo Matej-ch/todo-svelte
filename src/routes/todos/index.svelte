@@ -1,24 +1,14 @@
 <script context="module">
-    import {enhance} from '$lib/form';
+    //import {enhance} from '$lib/form';
+    import {localStore} from "$lib/actions/localStore.js";
 
     // see https://kit.svelte.dev/docs#loading
-    /*export const load = async ({fetch}) => {
-        const res = await fetch('/todos.json');
+    export async function load() {
 
-        if (res.ok) {
-            const todos = await res.json();
+        const todos = localStore('todo-todos', []);
 
-            return {
-                props: {todos}
-            };
-        }
-
-        const {message} = await res.json();
-
-        return {
-            error: new Error(message)
-        };
-    };*/
+        return {props: {todos}}
+    }
 </script>
 
 <script>
@@ -26,20 +16,43 @@
     import {flip} from 'svelte/animate';
     import Fa from 'svelte-fa/src/fa.svelte'
     import {faArchive, faFlag, faList} from "@fortawesome/free-solid-svg-icons";
-    import {localStore} from "$lib/actions/localStore.js";
 
-    //export let todos;
+    let name = '';
 
-    export let todos = localStore('todo-todos', [])
+    export let todos;
 
-    async function patch(res) {
+    $: newTagId = $todos.length > 0 ? Math.max(...$todos.map(t => t.id)) + 1 : 1
+
+    function addTodo(e) {
+        const formData = new FormData(e.target);
+
+        if (!name.length) {
+            return;
+        }
+
+        const data = {};
+        for (let field of formData) {
+            const [key, value] = field;
+            data[key] = value;
+        }
+
+        let date = new Date();
+        data['id'] = newTagId;
+        data['date'] = `${date.getDay()}-${date.getMonth()}-${date.getFullYear()}`;
+        data['state'] = 'new'; // archived, closed,finished, deleted, etc...
+        data['tags'] = [];
+        $todos = [data, ...$todos];
+        name = '';
+    }
+
+    /*async function patch(res) {
         const todo = await res.json();
 
         $todos = $todos.map((t) => {
             if (t.uid === todo.uid) return todo;
             return t;
         });
-    }
+    }*/
 
 </script>
 
@@ -70,29 +83,22 @@
     </div>
 
     <form
+        on:submit|preventDefault={addTodo}
         class="new"
-        action="/todos.json"
         method="post"
-        use:enhance={{
-			result: async (res, form) => {
-				const created = await res.json();
-				$todos = [...$todos, created];
-
-				form.reset();
-			}
-		}}
     >
-        <input name="text" aria-label="Add todo" placeholder="+ tap to add a todo"/>
+        <input name="text" aria-label="Add todo" bind:value={name} placeholder="+ tap to add a todo"/>
     </form>
 
-    {#each $todos as todo (todo.uid)}
+    {#each $todos as todo (todo.id)}
         <div
             class="todo"
-            class:done={todo.done}
             transition:scale|local={{ start: 0.7 }}
             animate:flip={{ duration: 200 }}
         >
-            <form
+
+            {todo.text}
+            <!--<form
                 action="/todos/{todo.uid}.json?_method=PATCH"
                 method="post"
                 use:enhance={{
@@ -104,9 +110,9 @@
             >
                 <input type="hidden" name="done" value={todo.done ? '' : 'true'}/>
                 <button class="toggle" aria-label="Mark todo as {todo.done ? 'not done' : 'done'}"/>
-            </form>
+            </form>-->
 
-            <form
+            <!--<form
                 class="text"
                 action="/todos/{todo.uid}.json?_method=PATCH"
                 method="post"
@@ -116,9 +122,9 @@
             >
                 <input aria-label="Edit todo" type="text" name="text" value={todo.text}/>
                 <button class="save" aria-label="Save todo"/>
-            </form>
+            </form>-->
 
-            <form
+            <!--<form
                 action="/todos/{todo.uid}.json?_method=DELETE"
                 method="post"
                 use:enhance={{
@@ -127,9 +133,9 @@
 						$todos = $todos.filter((t) => t.uid !== todo.uid);
 					}
 				}}
-            >
-                <button class="delete" aria-label="Delete todo" disabled={todo.pending_delete}/>
-            </form>
+            >-->
+            <!--<button class="delete" aria-label="Delete todo" disabled={todo.pending_delete}/>-->
+            <!--</form>-->
         </div>
     {/each}
 
