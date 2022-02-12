@@ -1,5 +1,4 @@
 <script context="module">
-    //import {enhance} from '$lib/form';
     import {localStore} from "$lib/actions/localStore.js";
 
     // see https://kit.svelte.dev/docs#loading
@@ -25,6 +24,10 @@
     import {alert} from "$lib/stores"
     import FilterButton from "$lib/components/FilterButton.svelte";
 
+    let archivedClassEnabled = 'bg-yellow-500 hover:bg-yellow-700';
+    let archivedClassDisabled = 'bg-stone-500 hover:bg-stone-700';
+    let finishedClassEnabled = 'bg-green-500 hover:bg-green-700';
+    let finishedClassDisabled = 'bg-stone-500 hover:bg-stone-700';
     let name = '';
     let filter = 'all'
     const filterTodos = (filter, todos) => {
@@ -135,15 +138,16 @@
                     </div>
                 </div>
 
-
                 <div class="self-start">
-                    <button class="inline-flex justify-center items-center bg-green-500"
-                            on:click={() => updateState(todo,'finished')}>
+                    <button
+                        class="inline-flex justify-center items-center {todo.state === 'finished' ? finishedClassEnabled  : finishedClassDisabled}"
+                        on:click={() => updateState(todo,'finished')}>
                         <Fa icon={faCheckCircle}/>
                     </button>
 
-                    <button class="inline-flex justify-center items-center bg-yellow-500"
-                            on:click={() => updateState(todo,'archived')}>
+                    <button
+                        class="inline-flex justify-center items-center {todo.state === 'archived' ? archivedClassEnabled  : archivedClassDisabled} "
+                        on:click={() => updateState(todo,'archived')}>
                         <Fa icon={faArchive}/>
                     </button>
                 </div>
@@ -188,7 +192,9 @@
                     <button class="save" aria-label="Save todo"/>
                 </form>-->
 
-                <button class="inline-flex justify-center items-center bg-red-500 absolute top-2 right-2" on:click={() => {
+                <button
+                    class="inline-flex justify-center items-center bg-red-500 hover:bg-red-900 absolute top-2 right-2"
+                    on:click={() => {
                         $todos = $todos.filter((t) => t.id !== todo.id);
                         $alert = `Todo '${todo.text}' has been removed`
                     }}>
