@@ -1,7 +1,7 @@
 <script>
     import Fa from 'svelte-fa/src/fa.svelte'
     import {
-        faArchive,
+        faArchive, faCheckCircle,
         faList, faListAlt,
 
     } from "@fortawesome/free-solid-svg-icons";
@@ -23,7 +23,7 @@
             aria-pressed={filter === 'active'}
             on:click={()=> filter = 'active'}
             class="flex items-center gap-1 py-2 px-4 text-sm font-medium text-gray-900 bg-white border-t border-b border-r border-gray-300 hover:bg-gray-200 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700">
-        <Fa icon={faList}/>
+        <Fa icon={faListAlt}/>
         Active
     </button>
     <button type="button"
@@ -31,7 +31,7 @@
             aria-pressed={filter === 'finished'}
             on:click={()=> filter = 'finished'}
             class="flex items-center gap-1 py-2 px-4 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-300 hover:bg-gray-200 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700">
-        <Fa icon={faListAlt}/>
+        <Fa icon={faCheckCircle}/>
         Completed
     </button>
     <button type="button"

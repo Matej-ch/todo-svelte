@@ -9,6 +9,8 @@
     }
 </script>
 <script>
+    import {scale} from 'svelte/transition';
+    import {flip} from 'svelte/animate';
     import Fa from 'svelte-fa/src/fa.svelte'
     import {faTags, faTimesCircle} from "@fortawesome/free-solid-svg-icons";
     import {alert} from "$lib/stores"
@@ -33,7 +35,7 @@
         }
 
         data['id'] = newTagId;
-        $tags = [...$tags, data];
+        $tags = [data, ...$tags];
         $alert = `Tag '${name}' has been added`
         name = '';
     }
@@ -59,8 +61,10 @@
     </form>
 
     <div class="pt-12 flex flex-row flex-wrap gap-6">
-        {#each $tags as tag }
-            <div class="py-2 flex items-center gap-1 text-slate-800">
+        {#each $tags as tag (tag.id) }
+            <div class="py-2 flex items-center gap-1 text-slate-800"
+                 transition:scale|local={{ start: 0.7 }}
+                 animate:flip={{ duration: 200 }}>
                 <Fa icon={faTags}/> {tag.name}
 
                 <button class="delete" aria-label="Delete tag" on:click={() => {
