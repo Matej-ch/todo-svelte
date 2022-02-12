@@ -17,7 +17,7 @@
 
 </script>
 
-<div class="grow-0 flex flex-col gap-4 pl-4 pt-8">
+<div class="grow-0 flex flex-col gap-4 px-4 pt-8">
 
     <div class="flex flex-col">
         <h2 class="uppercase pb-3 text-slate-500">TO-DO list</h2>

@@ -44,7 +44,8 @@
 
 <div class="todos">
     <h1 class="font-bold text-3xl pb-2">Tags </h1>
-    <p class="pb-8 mb-4 border-b">There is <span class="font-bold">{$tags.length || 0}</span> tags</p>
+    <p class="pb-8 mb-4 border-b">There {$tags.length > 1 ? 'are' : 'is'}  <span
+        class="font-bold">{$tags.length || 0}</span> tags</p>
 
     <form
         class="new"
