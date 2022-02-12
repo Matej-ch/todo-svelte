@@ -24,6 +24,7 @@
         faTrash
     } from "@fortawesome/free-solid-svg-icons";
     import moment from "moment";
+    import {alert} from "$lib/stores"
 
     let name = '';
 
@@ -50,6 +51,7 @@
         data['state'] = 'new'; // archived, closed,finished, deleted, etc...
         data['tags'] = [];
         $todos = [data, ...$todos];
+        $alert = `Todo '${name}' has been added`
         name = '';
     }
 
@@ -172,21 +174,9 @@
                     <button class="save" aria-label="Save todo"/>
                 </form>-->
 
-                <!--<form
-                    action="/todos/{todo.uid}.json?_method=DELETE"
-                    method="post"
-                    use:enhance={{
-                        pending: () => (todo.pending_delete = true),
-                        result: () => {
-                            $todos = $todos.filter((t) => t.uid !== todo.uid);
-                        }
-                    }}
-                >-->
-                <!--<button class="delete" aria-label="Delete todo" disabled={todo.pending_delete}/>-->
-                <!--</form>-->
-
                 <button class="inline-flex justify-center items-center bg-red-500 absolute top-2 right-2" on:click={() => {
                         $todos = $todos.filter((t) => t.id !== todo.id);
+                        $alert = `Todo '${todo.text}' has been removed`
                     }}>
                     <Fa icon={faTrash}/>
                 </button>

@@ -11,6 +11,7 @@
 <script>
     import Fa from 'svelte-fa/src/fa.svelte'
     import {faTags, faTimesCircle} from "@fortawesome/free-solid-svg-icons";
+    import {alert} from "$lib/stores"
 
     let name = '';
 
@@ -33,6 +34,7 @@
 
         data['id'] = newTagId;
         $tags = [...$tags, data];
+        $alert = `Tag '${name}' has been added`
         name = '';
     }
 </script>
@@ -63,6 +65,7 @@
 
                 <button class="delete" aria-label="Delete tag" on:click={() => {
                         $tags = $tags.filter((t) => t.id !== tag.id);
+                        $alert = `Tag '${tag.name}' has been removed`
                     }}>
                     <Fa icon={faTimesCircle} class="text-red-800"/>
                 </button>
