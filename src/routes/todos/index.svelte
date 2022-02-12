@@ -20,10 +20,10 @@
         faCheckCircle, faFile,
         faFlag,
         faList,
-        faPencilAlt,
-        faStickyNote, faTag,
+        faTag,
         faTrash
     } from "@fortawesome/free-solid-svg-icons";
+    import moment from "moment";
 
     let name = '';
 
@@ -46,7 +46,7 @@
 
         let date = new Date();
         data['id'] = newTagId;
-        data['date'] = `${date.getDay()}-${date.getMonth()}-${date.getFullYear()}`;
+        data['date'] = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
         data['state'] = 'new'; // archived, closed,finished, deleted, etc...
         data['tags'] = [];
         $todos = [data, ...$todos];
@@ -108,15 +108,15 @@
 
                 <div class="pt-2">
                     <div class="flex gap-2 text-left text-2xl text-slate-700 font-bold items-center mb-2">
-                        <Fa icon={faStickyNote}/>
                         {todo.text}
                     </div>
 
                     <div>
                         <span
+                            title="{todo.date}"
                             class="bg-gray-100 text-gray-800 text-xs font-medium inline-flex gap-1 items-baseline px-1.5 py-1 rounded mr-2 dark:bg-gray-700 dark:text-gray-200">
                             <Fa icon={faCalendarDay}/>
-                            <span>Created {todo.date}</span>
+                            <span>Created {moment(todo.date, "YYYY-MM-DD h:mm:ss").fromNow()}</span>
                         </span>
                     </div>
                 </div>
