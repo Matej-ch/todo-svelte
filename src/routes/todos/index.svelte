@@ -70,7 +70,7 @@
 
 <div class="todos">
     <h1 class="font-bold text-3xl pb-1">To-Do List items</h1>
-    <p class="pb-4 mb-4 border-b text-sm">There {$todos.length > 1 ? 'are' : 'is'} {$todos.length || 0} todos</p>
+    <p class="pb-4 mb-4 border-b text-sm">You have <span class="font-bold">{$todos.length || 0}</span> todos</p>
 
     <div class="inline-flex rounded-md shadow-sm" role="group">
         <button type="button"
@@ -125,10 +125,6 @@
                 <div class="self-start">
                     <button class="inline-flex justify-center items-center bg-green-500">
                         <Fa icon={faCheckCircle}/>
-                    </button>
-
-                    <button class="inline-flex justify-center items-center bg-purple-500">
-                        <Fa icon={faPencilAlt}/>
                     </button>
 
                     <button class="inline-flex justify-center items-center bg-yellow-500">
@@ -189,7 +185,9 @@
                 <!--<button class="delete" aria-label="Delete todo" disabled={todo.pending_delete}/>-->
                 <!--</form>-->
 
-                <button class="inline-flex justify-center items-center bg-red-500 absolute top-2 right-2">
+                <button class="inline-flex justify-center items-center bg-red-500 absolute top-2 right-2" on:click={() => {
+                        $todos = $todos.filter((t) => t.id !== todo.id);
+                    }}>
                     <Fa icon={faTrash}/>
                 </button>
             </div>
