@@ -48,21 +48,26 @@
         let date = new Date();
         data['id'] = newTagId;
         data['date'] = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
-        data['state'] = 'new'; // archived, closed,finished, deleted, etc...
+        data['state'] = 'new';
         data['tags'] = [];
         $todos = [data, ...$todos];
         $alert = `Todo '${name}' has been added`
         name = '';
     }
 
-    /*async function patch(res) {
-        const todo = await res.json();
+    function updateState(todo, state) {
+        const i = $todos.findIndex(t => t.id === todo.id)
+        todo.state = state;
 
-        $todos = $todos.map((t) => {
-            if (t.uid === todo.uid) return todo;
-            return t;
-        });
-    }*/
+        if (state === 'finished') {
+            $alert = `Todo '${todo.text}' is finished`
+        }
+        if (state === 'archived') {
+            $alert = `Todo '${todo.text}' is archived`
+        }
+
+        $todos[i] = {...$todos[i], ...todo}
+    }
 
 </script>
 
@@ -125,11 +130,13 @@
 
 
                 <div class="self-start">
-                    <button class="inline-flex justify-center items-center bg-green-500">
+                    <button class="inline-flex justify-center items-center bg-green-500"
+                            on:click={updateState(todo,'finished')}>
                         <Fa icon={faCheckCircle}/>
                     </button>
 
-                    <button class="inline-flex justify-center items-center bg-yellow-500">
+                    <button class="inline-flex justify-center items-center bg-yellow-500"
+                            on:click={updateState(todo,'archived')}>
                         <Fa icon={faArchive}/>
                     </button>
                 </div>
