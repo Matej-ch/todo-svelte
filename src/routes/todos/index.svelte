@@ -18,15 +18,38 @@
     import {
         faArchive, faCalendarDay,
         faCheckCircle, faFile,
-        faFlag,
-        faList,
         faTag,
         faTrash
     } from "@fortawesome/free-solid-svg-icons";
     import moment from "moment";
     import {alert} from "$lib/stores"
+    import FilterButton from "$lib/components/FilterButton.svelte";
 
     let name = '';
+    let filter = 'all'
+    const filterTodos = (filter, todos) => {
+
+        if (filter === 'active') {
+            return todos.filter(t => t['state'] === 'new');
+        }
+
+        if (filter === 'finished') {
+            return todos.filter(t => t['state'] === 'finished');
+        }
+
+        if (filter === 'archived') {
+            return todos.filter(t => t['state'] === 'archived');
+        }
+
+        return todos;
+    }
+
+    $: {
+        if (filter === 'all') $alert = 'Browsing all todos'
+        else if (filter === 'active') $alert = 'Browsing active todos'
+        else if (filter === 'finished') $alert = 'Browsing finished todos'
+        else if (filter === 'archived') $alert = 'Browsing archived todos'
+    }
 
     export let todos;
 
@@ -79,23 +102,7 @@
     <h1 class="font-bold text-3xl pb-1">To-Do List items</h1>
     <p class="pb-4 mb-4 border-b text-sm">You have <span class="font-bold">{$todos.length || 0}</span> todos</p>
 
-    <div class="inline-flex rounded-md shadow-sm" role="group">
-        <button type="button"
-                class="flex items-center gap-1 py-2 px-4 text-sm font-medium text-gray-900 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-200 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700">
-            <Fa icon={faList}/>
-            Active
-        </button>
-        <button type="button"
-                class="flex items-center gap-1 py-2 px-4 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-300 hover:bg-gray-200 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700">
-            <Fa icon={faFlag}/>
-            Finalized
-        </button>
-        <button type="button"
-                class="flex items-center gap-1 py-2 px-4 text-sm font-medium text-gray-900 bg-white rounded-r-md border border-gray-300 hover:bg-gray-200 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700">
-            <Fa icon={faArchive}/>
-            Archived
-        </button>
-    </div>
+    <FilterButton bind:filter/>
 
     <form
         on:submit|preventDefault={addTodo}
@@ -106,7 +113,7 @@
     </form>
 
     <div class="flex flex-row flex-wrap gap-1 w-full">
-        {#each $todos as todo (todo.id)}
+        {#each filterTodos(filter, $todos) as todo (todo.id)}
             <div
                 class="todo"
                 transition:scale|local={{ start: 0.7 }}
@@ -131,12 +138,12 @@
 
                 <div class="self-start">
                     <button class="inline-flex justify-center items-center bg-green-500"
-                            on:click={updateState(todo,'finished')}>
+                            on:click={() => updateState(todo,'finished')}>
                         <Fa icon={faCheckCircle}/>
                     </button>
 
                     <button class="inline-flex justify-center items-center bg-yellow-500"
-                            on:click={updateState(todo,'archived')}>
+                            on:click={() => updateState(todo,'archived')}>
                         <Fa icon={faArchive}/>
                     </button>
                 </div>
