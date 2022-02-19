@@ -30,19 +30,25 @@
     <LoadingIndicator/>
 {/if}
 
-<Header/>
-<Alert/>
 
-<div class="flex flex-row grow">
-    <SideBar on:sync={handleSync} on:truncate={handleTruncate} on:export={handleExport} on:import={handleImport}/>
+<div id="theme-container" class="flex flex-col h-screen bg-base-100 text-base-content" data-theme="light">
+    <div id="app-container" class="flex flex-col h-screen bg-base-100 text-base-content">
+        <Header/>
+        <Alert/>
 
-    <main class="grow">
-        <slot/>
-    </main>
+        <div class="flex flex-row grow">
+            <SideBar on:sync={handleSync} on:truncate={handleTruncate} on:export={handleExport}
+                     on:import={handleImport}/>
+
+            <main class="grow">
+                <slot/>
+            </main>
+        </div>
+
+
+        <Footer/>
+    </div>
 </div>
-
-
-<Footer/>
 
 <style>
     main {

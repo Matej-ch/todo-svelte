@@ -7,6 +7,11 @@ const config = {
 
         methodOverride: {
             allowed: ['PUT', 'PATCH', 'DELETE']
+        },
+        vite: {
+            ssr: {
+                external: ['@xstate/svelte']
+            }
         }
     }
 };
