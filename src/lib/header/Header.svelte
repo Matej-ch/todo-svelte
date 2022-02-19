@@ -1,6 +1,14 @@
 <script>
     import Fa from 'svelte-fa/src/fa.svelte'
     import {faHome, faInfoCircle} from "@fortawesome/free-solid-svg-icons";
+    import {supabase} from "../../supabase.js";
+
+    const logout = () => {
+        console.log('login out');
+
+        supabase.auth.signOut()
+
+    }
 </script>
 
 <header>
@@ -56,6 +64,8 @@
                         <Fa icon={faInfoCircle}/>
                     </span>
                 </a>
+
+                <button on:click={logout}>Log out</button>
             </div>
 
 
