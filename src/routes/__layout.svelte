@@ -8,6 +8,7 @@
     import {sync, truncate} from "$lib/actions/db.js";
     import {exportCsv, importCsv} from "$lib/actions/file.js";
     import Alert from "$lib/components/Alert.svelte";
+    import {theme} from '$lib/stores'
 
     function handleSync() {
         sync();
@@ -31,7 +32,7 @@
 {/if}
 
 
-<div id="theme-container" class="flex flex-col h-screen bg-base-100 text-base-content" data-theme="light">
+<div id="theme-container" class="flex flex-col h-screen bg-base-100 text-base-content" data-theme="{$theme}">
     <div id="app-container" class="flex flex-col h-screen bg-base-100 text-base-content">
         <Header/>
         <Alert/>
