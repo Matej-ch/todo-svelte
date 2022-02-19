@@ -12,7 +12,7 @@
     import {scale} from 'svelte/transition';
     import {flip} from 'svelte/animate';
     import Fa from 'svelte-fa/src/fa.svelte'
-    import {faTags, faTimesCircle} from "@fortawesome/free-solid-svg-icons";
+    import {faTags} from "@fortawesome/free-solid-svg-icons";
     import {alert} from "$lib/stores"
 
     let name = '';
@@ -57,7 +57,7 @@
         on:submit|preventDefault={addTag}>
 
         <input type="text" name="name" bind:value={name} aria-label="Add tag" placeholder="Add tag"
-               class="bg-green-50 border border-green-500 text-green-900 placeholder-slate-400 text-sm rounded-md focus:ring-green-500 focus:border-green-500 block w-full p-2.5"/>
+               class="input input-bordered input-accent w-full max-w-md"/>
     </form>
 
     <div class="pt-12 flex flex-row flex-wrap gap-6">
@@ -67,11 +67,13 @@
                  animate:flip={{ duration: 200 }}>
                 <Fa icon={faTags}/> {tag.name}
 
-                <button class="delete" aria-label="Delete tag" on:click={() => {
+                <button aria-label="Delete tag" class="btn btn-xs btn-circle btn-outline" on:click={() => {
                         $tags = $tags.filter((t) => t.id !== tag.id);
                         $alert = `Tag '${tag.name}' has been removed`
                     }}>
-                    <Fa icon={faTimesCircle} class="text-red-800"/>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
                 </button>
             </div>
         {/each}

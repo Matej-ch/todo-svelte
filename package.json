@@ -29,6 +29,7 @@
     "@fortawesome/free-solid-svg-icons": "^5.15.4",
     "@lukeed/uuid": "^2.0.0",
     "cookie": "^0.4.1",
+    "daisyui": "^2.0.9",
     "moment": "^2.29.1",
     "svelte-fa": "^2.4.0"
   }
