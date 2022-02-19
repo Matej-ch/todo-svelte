@@ -28,6 +28,7 @@
     "@fortawesome/free-brands-svg-icons": "^5.15.4",
     "@fortawesome/free-solid-svg-icons": "^5.15.4",
     "@lukeed/uuid": "^2.0.0",
+    "@supabase/supabase-js": "^1.30.3",
     "cookie": "^0.4.1",
     "daisyui": "^2.0.9",
     "moment": "^2.29.1",
