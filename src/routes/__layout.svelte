@@ -9,7 +9,6 @@
     import {exportCsv, importCsv} from "$lib/actions/file.js";
     import Alert from "$lib/components/Alert.svelte";
     import {theme} from '$lib/stores'
-    import {supabase} from "../supabase.js";
 
     function handleSync() {
         sync();
@@ -26,8 +25,6 @@
     function handleExport() {
         exportCsv();
     }
-
-    console.log(supabase);
 </script>
 
 {#if $navigating }
