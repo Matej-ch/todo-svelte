@@ -23,12 +23,13 @@
     import Fa from 'svelte-fa/src/fa.svelte'
     import {faTags} from "@fortawesome/free-solid-svg-icons";
     import {alert} from "$lib/stores"
+    import {user} from "$lib/authStore.js";
 
     let name = '';
 
-    async function addTag(e,user_id = null) {
+    async function addTag() {
 
-
+        const user_id = $user.id;
         if (!name.length) {
             return;
         }
