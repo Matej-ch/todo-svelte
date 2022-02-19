@@ -1,9 +1,18 @@
 <script context="module">
-    import {localStore} from "$lib/actions/localStore.js";
+    import {supabase} from "../../supabase.js";
+    import {writable} from "svelte/store";
+
+    export const tags = writable([]);
 
     export async function load() {
 
-        const tags = localStore('todo-tags', []);
+        const {data,error} = await supabase.from('tags').select();
+
+        if(error) {
+            return console.log(error);
+        }
+
+        tags.set(data);
 
         return {props: {tags}}
     }
@@ -17,27 +26,34 @@
 
     let name = '';
 
-    export let tags;
+    async function addTag(e,user_id = null) {
 
-    $: newTagId = $tags.length > 0 ? Math.max(...$tags.map(t => t.id)) + 1 : 1
-
-    function addTag(e) {
-        const formData = new FormData(e.target);
 
         if (!name.length) {
             return;
         }
 
-        const data = {};
-        for (let field of formData) {
-            const [key, value] = field;
-            data[key] = value;
+        const {data,error} = await supabase.from('tags').insert([{name,user_id}]);
+
+        if(error) {
+            return console.log(error);
         }
 
-        data['id'] = newTagId;
-        $tags = [data, ...$tags];
+        tags.update((curr) =>  [data[0], ...curr]);
         $alert = `Tag '${name}' has been added`
-        name = '';
+    }
+
+    async function deleteTag(tag) {
+        const id = tag.id;
+        const {error} = await supabase.from('tags').delete().match({id});
+
+        if(error) {
+            return console.log(error);
+        }
+
+        tags.update((tags) => tags.filter((t) => t.id !== tag.id));
+        $alert = `Tag '${tag.name}' has been removed`
+
     }
 </script>
 
@@ -67,10 +83,7 @@
                  animate:flip={{ duration: 200 }}>
                 <Fa icon={faTags}/> {tag.name}
 
-                <button aria-label="Delete tag" class="btn btn-xs btn-circle btn-outline" on:click={() => {
-                        $tags = $tags.filter((t) => t.id !== tag.id);
-                        $alert = `Tag '${tag.name}' has been removed`
-                    }}>
+                <button aria-label="Delete tag" class="btn btn-xs btn-circle btn-outline" on:click={deleteTag(tag)}>
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                     </svg>
