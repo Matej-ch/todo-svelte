@@ -1,49 +1,55 @@
-// this action (https://svelte.dev/tutorial/actions) allows us to
-// progressively enhance a <form> that already works without JS
-export function enhance(form, { pending, error, result }) {
-	let current_token;
+/**
+ *
+ * first attribute is element this is used on
+ * in this case form
+ *
+ * usage as action use:<name_of_action>
+ *
+ * This function is called when page is refreshed
+ * */
+export function enhance(form, {pending, error, result}) {
 
-	async function handle_submit(e) {
-		const token = (current_token = {});
+    const handleSubmit = async (e) => {
+        e.preventDefault();
 
-		e.preventDefault();
+        /** naming formData body, means in fetch there is no need to set it following way body:body */
+        const body = new FormData(form);
 
-		const body = new FormData(form);
+        if (pending) pending(body, form);
 
-		if (pending) pending(body, form);
+        try {
+            const res = await fetch(form.action, {
+                method: form.method,
+                headers: {
+                    accept: 'application/json'
+                },
+                body
+            });
 
-		try {
-			const res = await fetch(form.action, {
-				method: form.method,
-				headers: {
-					accept: 'application/json'
-				},
-				body
-			});
+            if (res.ok) {
+                result(res, form);
+            } else if (error) {
+                error(res, null, form);
+            } else {
+                console.error(await res.text());
+            }
+        } catch (e) {
+            if (error) {
+                error(null, e, form);
+            } else {
+                throw e;
+            }
+        }
+    }
 
-			if (token !== current_token) return;
+    /** add handler  to submit event */
+    form.addEventListener('submit', handleSubmit);
 
-			if (res.ok) {
-				result(res, form);
-			} else if (error) {
-				error(res, null, form);
-			} else {
-				console.error(await res.text());
-			}
-		} catch (e) {
-			if (error) {
-				error(null, e, form);
-			} else {
-				throw e;
-			}
-		}
-	}
-
-	form.addEventListener('submit', handle_submit);
-
-	return {
-		destroy() {
-			form.removeEventListener('submit', handle_submit);
-		}
-	};
+    /** remove listener if element (form in this case) is removed from page */
+    /** prevents memory leaks */
+    return {
+        destroy() {
+            form.removeEventListener('submit', handleSubmit);
+        }
+    };
 }
