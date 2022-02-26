@@ -1,10 +1,18 @@
 <script context="module">
-    import {localStore} from "$lib/actions/localStore.js";
+    import {writable} from "svelte/store";
+    import {supabase} from "../../supabase.js";
 
-    // see https://kit.svelte.dev/docs#loading
+    export const todos = writable([]);
+
     export async function load() {
 
-        const todos = localStore('todo-todos', []);
+        const {data, error} = await supabase.from('todos').select();
+
+        if (error) {
+            return console.log(error);
+        }
+
+        todos.set(data);
 
         return {props: {todos}}
     }
@@ -23,6 +31,7 @@
     import moment from "moment";
     import {alert} from "$lib/stores"
     import FilterButton from "$lib/components/FilterButton.svelte";
+    import {user} from "$lib/authStore.js";
 
     let archivedClassEnabled = 'bg-yellow-500 hover:bg-yellow-700';
     let archivedClassDisabled = 'bg-stone-500 hover:bg-stone-700';
@@ -54,18 +63,30 @@
         else if (filter === 'archived') $alert = 'Browsing archived todos'
     }
 
-    export let todos;
+    //export let todos;
 
     $: newTagId = $todos.length > 0 ? Math.max(...$todos.map(t => t.id)) + 1 : 1
 
-    function addTodo(e) {
-        const formData = new FormData(e.target);
+    async function addTodo(e) {
+
+        const user_id = $user.id;
+
+        ///const formData = new FormData(e.target);
 
         if (!name.length) {
             return;
         }
 
-        const data = {};
+        const {data, error} = await supabase.from('tags').insert([{name, user_id}]);
+
+        if (error) {
+            return console.log(error);
+        }
+
+        todos.update((curr) => [data[0], ...curr]);
+        $alert = `Todo '${name}' has been added`
+
+        /*const data = {};
         for (let field of formData) {
             const [key, value] = field;
             data[key] = value;
@@ -78,7 +99,7 @@
         data['tags'] = [];
         $todos = [data, ...$todos];
         $alert = `Todo '${name}' has been added`
-        name = '';
+        name = '';*/
     }
 
     function updateState(todo, state) {
@@ -93,6 +114,18 @@
         }
 
         $todos[i] = {...$todos[i], ...todo}
+    }
+
+    async function deleteTodo(todo) {
+        const id = todo.id;
+        const {error} = await supabase.from('todos').delete().match({id});
+
+        if (error) {
+            return console.log(error);
+        }
+
+        todos.update((todos) => todos.filter((t) => t.id !== todo.id));
+        $alert = `TODO '${todo.name}' has been removed`
     }
 
 </script>
@@ -194,10 +227,7 @@
 
                 <button
                     class="inline-flex justify-center items-center bg-red-500 hover:bg-red-900 absolute top-2 right-2"
-                    on:click={() => {
-                        $todos = $todos.filter((t) => t.id !== todo.id);
-                        $alert = `Todo '${todo.text}' has been removed`
-                    }}>
+                    on:click={deleteTodo(todo)}>
                     <Fa icon={faTrash}/>
                 </button>
             </div>
