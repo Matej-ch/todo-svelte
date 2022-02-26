@@ -113,11 +113,13 @@
                 Database reset
             </a>
         </div>
+
         <div class="pl-4 flex flex-row items-center gap-1 pb-5">
             <a href="/about" class="flex gap-1 items-center">
                 <Fa icon={faInfoCircle}/>
                 About
             </a>
         </div>
+
     </div>
 </div>
