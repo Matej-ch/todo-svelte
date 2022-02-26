@@ -1,5 +1,4 @@
 import {supabase} from "../../supabase.js";
-import {alert} from "$lib/stores"
 
 export async function truncate() {
     const {errorTags} = await supabase.from('tags').delete();
@@ -19,9 +18,7 @@ export async function truncate() {
         fullErrorMessage += errorProjects;
     }
 
-    if (fullErrorMessage) {
-        $alert = fullErrorMessage;
-    }
+    return fullErrorMessage;
 }
 
 export function sync() {

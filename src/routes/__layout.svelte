@@ -9,13 +9,18 @@
     import {exportCsv, importCsv} from "$lib/actions/file.js";
     import Alert from "$lib/components/Alert.svelte";
     import {theme} from '$lib/stores'
+    import {alert} from "$lib/stores"
 
     function handleSync() {
         sync();
     }
 
-    function handleTruncate() {
-        truncate();
+    async function handleTruncate() {
+        const response = await truncate();
+
+        if (response) {
+            $alert = response;
+        }
     }
 
     function handleImport() {
