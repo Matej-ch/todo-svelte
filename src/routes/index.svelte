@@ -1,12 +1,6 @@
 <script context="module">
     export const prerender = true;
 
-    /*export async function load() {
-        return {
-            status: 302,
-            redirect: "/todos",
-        };
-    }*/
 </script>
 
 <script>
@@ -31,8 +25,8 @@
 
 <section>
 
-    {#if $user}
-        Your are login, add ability to log out
+    {#if $user }
+        <div class="mb-4 mt-4 bg-orange-400 text-orange-800 font-bold p-4 rounded">Your are already logged in</div>
     {:else }
         <Auth/>
     {/if}

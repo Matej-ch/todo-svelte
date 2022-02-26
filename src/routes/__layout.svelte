@@ -38,14 +38,15 @@
         <Alert/>
 
         <div class="flex flex-row grow">
-            <SideBar on:sync={handleSync} on:truncate={handleTruncate} on:export={handleExport}
+            <SideBar on:sync={handleSync}
+                     on:truncate={handleTruncate}
+                     on:export={handleExport}
                      on:import={handleImport}/>
 
             <main class="grow">
                 <slot/>
             </main>
         </div>
-
 
         <Footer/>
     </div>

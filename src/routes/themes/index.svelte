@@ -25,6 +25,10 @@
     import {theme} from '$lib/stores'
 </script>
 
+<svelte:head>
+    <title>Themes</title>
+</svelte:head>
+
 <div class="flex items-center gap-1 flex-row flex-wrap justify-center p-10">
     <label>
         Pick a theme

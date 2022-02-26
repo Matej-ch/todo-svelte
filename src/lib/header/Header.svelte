@@ -1,13 +1,12 @@
 <script>
     import Fa from 'svelte-fa/src/fa.svelte'
-    import {faHome, faInfoCircle} from "@fortawesome/free-solid-svg-icons";
+    import {faHome, faInfoCircle, faPowerOff} from "@fortawesome/free-solid-svg-icons";
     import {supabase} from "../../supabase.js";
 
     const logout = () => {
         console.log('login out');
 
         supabase.auth.signOut()
-
     }
 </script>
 
@@ -65,7 +64,10 @@
                     </span>
                 </a>
 
-                <button on:click={logout}>Log out</button>
+                <button on:click={logout} class="font-bold text-orange-900 flex items-center">
+                    <Fa icon={faPowerOff}/>&nbsp;
+                    Log out
+                </button>
             </div>
 
 
