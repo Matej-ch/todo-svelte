@@ -21,3 +21,5 @@ export const setTheme = (theme) => {
     session.update(($session) => ({...$session, theme}))
     fetch('/theme', {method: 'PUT', body: theme})
 }
+
+export const isOverlayOpen = writable(false)
