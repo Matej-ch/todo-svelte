@@ -8,8 +8,8 @@
     import {sync, truncate} from "$lib/actions/db.js";
     import {exportCsv, importCsv} from "$lib/actions/file.js";
     import Alert from "$lib/components/Alert.svelte";
-    import {theme} from '$lib/stores'
-    import {alert} from "$lib/stores"
+    import {theme, alert} from '$lib/stores'
+    import {user} from "$lib/authStore";
 
     function handleSync() {
         sync();
@@ -46,7 +46,8 @@
             <SideBar on:sync={handleSync}
                      on:truncate={handleTruncate}
                      on:export={handleExport}
-                     on:import={handleImport}/>
+                     on:import={handleImport}
+                     user={$user}/>
 
             <main class="grow">
                 <slot/>

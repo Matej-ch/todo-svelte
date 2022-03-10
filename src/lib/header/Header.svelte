@@ -4,10 +4,10 @@
     import {supabase} from "../../supabase.js";
     import {user} from "$lib/authStore";
 
-    const logout = () => {
-        console.log('login out');
+    const logout = async () => {
+        const {error} = await supabase.auth.signOut()
 
-        supabase.auth.signOut()
+        console.log('Sign-out:', error);
     }
 </script>
 

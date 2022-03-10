@@ -12,17 +12,12 @@
         faSync, faTags
     } from "@fortawesome/free-solid-svg-icons";
     import {createEventDispatcher} from 'svelte'
-    import {user} from "$lib/authStore";
 
     const dispatch = createEventDispatcher()
 
-    let disableClasses = '';
-    if (!$user) {
-        disableClasses = 'pointer-events-none text-slate-200'
-    }
 </script>
 
-<div class="grow-0 flex flex-col gap-4 px-4 pt-8 {disableClasses}">
+<div class="grow-0 flex flex-col gap-4 px-4 pt-8">
 
     <div class="flex flex-col">
         <h2 class="uppercase pb-3 font-bold">TO-DO list</h2>

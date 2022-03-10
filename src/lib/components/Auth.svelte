@@ -1,5 +1,6 @@
 <script>
     import {supabase} from "../../supabase.js";
+    import {user} from "$lib/authStore.js";
 
     let loading = false;
     let email;
@@ -9,14 +10,17 @@
         try {
             loading = true;
             console.log(email);
-            const {error} = await supabase.auth.signIn({email});
+            const {user: me, error} = await supabase.auth.signIn({email});
 
             if (error) throw error;
+
+            user.set(me);
+
             loginMessage = 'Check email for login link';
 
         } catch (error) {
             console.error(error);
-            alert(error.error_decription || error.message);
+            alert(error.error_description || error.message);
         }
     }
 
