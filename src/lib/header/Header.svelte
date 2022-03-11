@@ -53,7 +53,7 @@
                     </button>
                 </div>
 
-                <a href="/todos" class="flex hover:no-underline">
+                <a href="/" class="flex hover:no-underline">
                     <span class="self-center text-lg font-semibold whitespace-nowrap text-white">
                         <Fa icon={faHome}/>
                     </span>

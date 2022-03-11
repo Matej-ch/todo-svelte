@@ -5,21 +5,7 @@
 
 <script>
     import Auth from "$lib/components/Auth.svelte";
-    import {supabase} from "../supabase.js";
     import {user} from "$lib/authStore";
-    import {goto} from "$app/navigation";
-
-    user.set(supabase.auth.user());
-
-    supabase.auth.onAuthStateChange((_, session) => {
-        user.set(session?.user)
-        if (session?.user) {
-            goto("/todos");
-            //load stuff here todos, tags, etc,
-        } else {
-            goto("/");
-        }
-    })
 
 </script>
 

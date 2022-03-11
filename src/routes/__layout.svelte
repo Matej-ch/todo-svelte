@@ -10,6 +10,8 @@
     import Alert from "$lib/components/Alert.svelte";
     import {theme, alert} from '$lib/stores'
     import {user} from "$lib/authStore";
+    import {supabase} from "../supabase.js";
+    import {goto} from "$app/navigation";
 
     function handleSync() {
         sync();
@@ -30,6 +32,18 @@
     function handleExport() {
         exportCsv();
     }
+
+    user.set(supabase.auth.user());
+
+    supabase.auth.onAuthStateChange((_, session) => {
+        user.set(session?.user)
+        if (session?.user) {
+            goto("/todos");
+            //load stuff here todos, tags, etc,
+        } else {
+            goto("/");
+        }
+    })
 </script>
 
 {#if $navigating }
